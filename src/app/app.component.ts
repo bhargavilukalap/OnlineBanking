@@ -1,10 +1,19 @@
-import { Component } from '@angular/core';
+﻿import { Component } from '@angular/core';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-})
+import { AccountService } from './_services';
+import { Role, User } from './_models';
+
+@Component({ selector: 'app', templateUrl: 'app.component.html' })
 export class AppComponent {
-  title = 'Banking';
+    user:User={id: "",firstName:"",lastName:"",username:"",password:"",savings:0,Role:""}
+
+    constructor(private accountService: AccountService) {
+        this.accountService.user.subscribe(x => this.user = x);
+    }
+    get isAdmin(){
+        return this.user && this.user.Role==Role.Admin;
+    }
+    logout() {
+        this.accountService.logout();
+    }
 }

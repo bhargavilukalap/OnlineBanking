@@ -1,0 +1,26 @@
+﻿<div class="p-4">
+    <div class="container">
+        <h1>Hi {{user.firstName}}!</h1>
+        <p>You're logged in with Angular 9!!</p>
+        <p><a routerLink="/users">Manage Users</a></p>
+        <div *ngIf="isAdmin()">
+            <li>
+                <p>FirstName:{{user.firstName}}</p>
+               
+            </li>
+
+        </div>
+        <div *ngIf="!isAdmin()">
+            <li>
+                <p>FirstName:{{user.firstName}}</p>
+                <p>Current Balance:{{user.savings}}</p>
+
+                <p><a routerLink="Deposits/{{user.Id}}" routerLinkActive="active">Deposits</a></p>
+                <p><a routerLink="WithDraw/{{user.Id}}" routerLinkActive="active">WithDraw</a></p>
+               
+            </li>
+
+        </div>
+        
+    </div>
+</div>

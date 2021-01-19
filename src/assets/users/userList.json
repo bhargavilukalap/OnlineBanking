@@ -1,0 +1,44 @@
+ {"users":
+    [
+      { 
+           "Id":"1",
+           "firstName":"first",
+           "lastName":"last",
+           "username": "Bhargavi",
+           "password":"Oobh",  
+           "savings":500,       
+            "Role":"User"
+            
+      },
+      {
+        "Id":"2",
+        "firstName":"first",
+           "lastName":"last",
+      "username": "Bha",
+      "password":"Oobh", 
+      "savings":1000,    
+       "Role":"User"
+      }
+    ],
+    "transactionList":
+    [
+      { 
+           "Id":"1",
+           "username": "Bhargavi",
+            "transactionType":"Deposit",
+            "Amount":5000,
+            "Role":"User"
+            
+      },
+      {
+        "Id":"2",
+       "username": "Bha",
+        "transactionType":"Deposit",
+        "Amount":5000,
+        "Role":"User"
+      }
+    ]
+     
+
+}
+   
