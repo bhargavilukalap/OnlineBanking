@@ -3,13 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { AccountService/*, AlertService*/ } from '../_services';
 
 @Component({ templateUrl: 'add-edit.component.html' })
 export class AddEditComponent implements OnInit {
-    form: FormGroup;
-    id: string;
-    isAddMode: boolean;
+    form=new FormGroup({});
+    id: string="";
+    isAddMode: boolean=false;
     loading = false;
     submitted = false;
 
@@ -18,7 +18,7 @@ export class AddEditComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private accountService: AccountService,
-        private alertService: AlertService
+        //private alertService: AlertService
     ) {}
 
     ngOnInit() {
@@ -42,7 +42,7 @@ export class AddEditComponent implements OnInit {
         if (!this.isAddMode) {
             this.accountService.getById(this.id)
                 .pipe(first())
-                .subscribe(x => {
+                .subscribe((x: { firstName: any; lastName: any; username: any; Role: any; }) => {
                     this.f.firstName.setValue(x.firstName);
                     this.f.lastName.setValue(x.lastName);
                     this.f.username.setValue(x.username);
@@ -59,7 +59,7 @@ export class AddEditComponent implements OnInit {
         this.submitted = true;
 
         // reset alerts on submit
-        this.alertService.clear();
+       // this.alertService.clear();
 
         // stop here if form is invalid
         if (this.form.invalid) {
@@ -78,12 +78,12 @@ export class AddEditComponent implements OnInit {
         this.accountService.register(this.form.value)
             .pipe(first())
             .subscribe(
-                data => {
-                    this.alertService.success('User added successfully', { keepAfterRouteChange: true });
+                (_data: any) => {
+                   // this.alertService.success('User added successfully', { keepAfterRouteChange: true });
                     this.router.navigate(['.', { relativeTo: this.route }]);
                 },
-                error => {
-                    this.alertService.error(error);
+                (error: any) => {
+                   // this.alertService.error(error);
                     this.loading = false;
                 });
     }
@@ -92,12 +92,12 @@ export class AddEditComponent implements OnInit {
         this.accountService.update(this.id, this.form.value)
             .pipe(first())
             .subscribe(
-                data => {
-                    this.alertService.success('Update successful', { keepAfterRouteChange: true });
+                (_data:any) => {
+                    //this.alertService.success('Update successful', { keepAfterRouteChange: true });
                     this.router.navigate(['..', { relativeTo: this.route }]);
                 },
-                error => {
-                    this.alertService.error(error);
+                (error:any) => {
+                   // this.alertService.error(error);
                     this.loading = false;
                 });
     }

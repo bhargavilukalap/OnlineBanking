@@ -1,10 +1,15 @@
+
+
 export class Alert {
-    id: string;
-    type: AlertType;
-    message: string;
-    autoClose: boolean;
-    keepAfterRouteChange: boolean;
-    fade: boolean;
+    [x: string]: any;
+
+
+    id: string="";
+    type: AlertType = 0;
+    message: string="";
+    autoClose: boolean=false;
+    keepAfterRouteChange: boolean=false;
+    fade: boolean=false;
 
     constructor(init?:Partial<Alert>) {
         Object.assign(this, init);

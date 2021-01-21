@@ -11,26 +11,27 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './_components';
 import { HomeComponent } from './home';;
-import { DepositsComponent } from './transactions/deposits/deposits.component'
-;
-import { WithdrawComponent } from './transactions/withdraw/withdraw.component'/;
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'/import {LoginComponent} from './login/login.component';
+import { DepositsComponent } from './transactions/deposits/deposits.component';
+import { WithdrawComponent } from './transactions/withdraw/withdraw.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminComponent } from './admin/admin.component';
+
 
 @NgModule({
     imports: [
         BrowserModule,
         ReactiveFormsModule,
         HttpClientModule,
-        AppRoutingModule
-,
-        NgbModule    ],
+        AppRoutingModule,
+        NgbModule],
+
     declarations: [
         AppComponent,
         AlertComponent,
-        HomeComponent,,
-        DepositsComponent
-,
-        WithdrawComponent       // LoginComponent
+        HomeComponent,
+        DepositsComponent,
+        WithdrawComponent ,
+        AdminComponent      // LoginComponent
     ],
     providers: [
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

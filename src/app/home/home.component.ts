@@ -7,6 +7,8 @@ import { AccountService } from '../_services';
 export class HomeComponent {
     user: User;
     Role:string="";
+    isAdmin:boolean=false;
+    
 
     constructor(private accountService: AccountService) {
 
@@ -14,6 +16,15 @@ export class HomeComponent {
         this.user = this.accountService.userValue;
     }
     ngOnInit(){
-        this.Role=this.user.Role;
+      /*  this.Role=this.user.Role;
+        if(this.Role=='User')
+        {
+            this.isAdmin=false;
+        }
+        else
+        {
+            this.isAdmin=true;
+        }
+*/
     }
 }

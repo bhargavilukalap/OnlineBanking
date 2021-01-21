@@ -3,11 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { AccountService, AlertService } from '../_services';
 
 @Component({ templateUrl: 'register.component.html' })
 export class RegisterComponent implements OnInit {
-    form: FormGroup;
+    form=new FormGroup({});
     loading = false;
     submitted = false;
 
@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
         this.submitted = true;
       //  console.log(this.form.value.role);
         // reset alerts on submit
-        this.alertService.clear();
+       // this.alertService.clear();
 
         // stop here if form is invalid
         if (this.form.invalid) {

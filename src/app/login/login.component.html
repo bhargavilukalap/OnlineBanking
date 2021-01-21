@@ -1,0 +1,29 @@
+<div class="container">      
+    <div class="card m-4 ">
+        <h5 class="card-header text-center">Registration Form</h5>
+        <div class="card-body "> 
+            <form [formGroup]="loginForm"  (ngSubmit)="login()">
+                <div class="form-group row">
+                    <label for="username"><b>Username</b></label>
+                    <input type="text" class="form-control" formControlName="userName" [ngClass]="{ 'has-error': isSubmitted && formControls.userName.errors }">
+                    <div *ngIf="isSubmitted && formControls.userName.errors" >
+                        <div *ngIf="formControls.userName.errors.required">Email is required</div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label ><b>Username</b></label>
+                    <input type="password" placeholder="Password" class="form-control" formControlName="password" [ngClass]="{ 'has-error': isSubmitted && formControls.password.errors }">
+                    <div *ngIf="isSubmitted && formControls.password.errors" class="help-block">
+                        <div *ngIf="formControls.password.errors.required">Password is required</div>
+                    </div>
+                </div>
+             <!--  <div *ngFor="let user of msg">
+                    <h2>{{user.userName}}</h2>
+                </div>-->
+              
+                <button type="submit" class="btn btn-primary">submit</button>
+              
+            </form>
+        </div>
+    </div>
+</div>

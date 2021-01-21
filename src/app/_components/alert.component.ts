@@ -2,17 +2,17 @@
 import { Router, NavigationStart } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { Alert, AlertType } from '@app/_models';
-import { AlertService } from '@app/_services';
+import { Alert, AlertType } from '../_models';
+import { AlertService } from '../_services';
 
 @Component({ selector: 'alert', templateUrl: 'alert.component.html' })
 export class AlertComponent implements OnInit, OnDestroy {
     @Input() id = 'default-alert';
     @Input() fade = true;
 
-    alerts: Alert[] = [];
-    alertSubscription: Subscription;
-    routeSubscription: Subscription;
+    alerts: Alert[]=[];
+    alertSubscription!: Subscription;
+    routeSubscription!: Subscription;
 
     constructor(private router: Router, private alertService: AlertService) { }
 
@@ -23,10 +23,10 @@ export class AlertComponent implements OnInit, OnDestroy {
                 // clear alerts when an empty alert is received
                 if (!alert.message) {
                     // filter out alerts without 'keepAfterRouteChange' flag
-                    this.alerts = this.alerts.filter(x => x.keepAfterRouteChange);
+                    this.alerts = this.alerts.filter((x:any) => x.keepAfterRouteChange);
 
                     // remove 'keepAfterRouteChange' flag on the rest
-                    this.alerts.forEach(x => delete x.keepAfterRouteChange);
+                    this.alerts.forEach((x:any) => delete x.keepAfterRouteChange);
                     return;
                 }
 
@@ -57,18 +57,18 @@ export class AlertComponent implements OnInit, OnDestroy {
         // check if already removed to prevent error on auto close
         if (!this.alerts.includes(alert)) return;
 
-        if (this.fade) {
+      /*  if (this.fade) {
             // fade out alert
-            this.alerts.find(x => x === alert).fade = true;
+            this.alerts.find((x: Alert) => x === alert).fade = true;
 
             // remove alert after faded out
             setTimeout(() => {
-                this.alerts = this.alerts.filter(x => x !== alert);
+                this.alerts = this.alerts.filter((x: Alert) => x !== alert);
             }, 250);
         } else {
             // remove alert
-            this.alerts = this.alerts.filter(x => x !== alert);
-        }
+            this.alerts = this.alerts.filter((x: Alert) => x !== alert);
+        }*/
     }
 
     cssClass(alert: Alert) {

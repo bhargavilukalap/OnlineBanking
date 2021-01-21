@@ -3,14 +3,15 @@
         <h1>Hi {{user.firstName}}!</h1>
         <p>You're logged in with Angular 9!!</p>
         <p><a routerLink="/users">Manage Users</a></p>
-        <div *ngIf="isAdmin()">
+        <div *ngIf="user">
             <li>
                 <p>FirstName:{{user.firstName}}</p>
+                <p>LAstName:{{user.username}}</p>
                
             </li>
 
         </div>
-        <div *ngIf="!isAdmin()">
+      <!-- <div *ngIf="!isAdmin">
             <li>
                 <p>FirstName:{{user.firstName}}</p>
                 <p>Current Balance:{{user.savings}}</p>
@@ -20,7 +21,7 @@
                
             </li>
 
-        </div>
+        </div>-->
         
     </div>
 </div>

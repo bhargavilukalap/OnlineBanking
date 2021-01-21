@@ -3,14 +3,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 
-import { AccountService, AlertService } from '@app/_services';
+import { AccountService, AlertService } from '../_services';
 
 @Component({ templateUrl: 'login.component.html' })
 export class LoginComponent implements OnInit {
-    form: FormGroup;
+    form=new FormGroup({});
     loading = false;
     submitted = false;
-    returnUrl: string;
+    returnUrl: string="";
 
     constructor(
         private formBuilder: FormBuilder,
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
         this.submitted = true;
 
         // reset alerts on submit
-        this.alertService.clear();
+       // this.alertService.clear();
 
         // stop here if form is invalid
         if (this.form.invalid) {

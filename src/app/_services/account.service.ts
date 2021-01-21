@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-//import { environment } from 'environments/environment';
+import { environment } from '../../environments/environment';
 import { User } from '../_models';
 import { TransactionData } from '../_models/transaction-data';
 
@@ -12,12 +12,13 @@ import { TransactionData } from '../_models/transaction-data';
 export class AccountService {
     private userSubject: BehaviorSubject<User>;
     public user: Observable<User>;
-    apiUrl='http://localhost:3000';
+    filler:User={Id: "",firstName:"",lastName:"",username:"",password:"",savings:0,Role:""}//for sending nullvalue
+    //apiUrl='http://localhost:3000';
     constructor(
         private router: Router,
         private http: HttpClient
     ) {
-        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')));
+        this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user')||'{}'));
         this.user = this.userSubject.asObservable();
     }
 
@@ -25,8 +26,8 @@ export class AccountService {
         return this.userSubject.value;
     }
 
-    login(username, password) {
-        return this.http.post<User>(`${this.apiUrl}/users/authenticate`, { username, password })
+    login(username:string, password:string) {
+        return this.http.post<User>(`${environment.apiUrl}/users/authenticate`, { username, password })
             .pipe(map(user => {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
@@ -38,27 +39,27 @@ export class AccountService {
     logout() {
         // remove user from local storage and set current user to null
         localStorage.removeItem('user');
-        this.userSubject.next(null);
+        this.userSubject.next(this.filler);
         this.router.navigate(['/account/login']);
     }
 
     register(user: User) {
-        return this.http.post(`${this.apiUrl}/users/register`, user);
+        return this.http.post(`${environment.apiUrl}/users/register`, user);
     }
 
     getAll() {
-        return this.http.get<User[]>(`${this.apiUrl}/users`);
+        return this.http.get<User[]>(`${environment.apiUrl}/users`);
     }
 
     getById(id: string) {
-        return this.http.get<User>(`${this.apiUrl}/users/${id}`);
+        return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
 
-    update(id, params) {
-        return this.http.put(`${this.apiUrl}/users/${id}`, params)
+    update(id:string, params:any) {
+        return this.http.put(`${environment.apiUrl}/users/${id}`, params)
             .pipe(map(x => {
                 // update stored user if the logged in user updated their own record
-                if (id == this.userValue.id) {
+                if (id == this.userValue.Id) {
                     // update local storage
                     const user = { ...this.userValue, ...params };
                     localStorage.setItem('user', JSON.stringify(user));
@@ -71,10 +72,10 @@ export class AccountService {
     }
 
     delete(id: string) {
-        return this.http.delete(`${this.apiUrl}/users/${id}`)
+        return this.http.delete(`${environment.apiUrl}/users/${id}`)
             .pipe(map(x => {
                 // auto logout if the logged in user deleted their own record
-                if (id == this.userValue.id) {
+                if (id == this.userValue.Id) {
                     this.logout();
                 }
                 return x;
@@ -82,9 +83,9 @@ export class AccountService {
     }
     get_Transactions(id:string){//gets transactions of particular user
 
-        return this.http.get<TransactionData[]>(`${this.apiUrl}/transactionList/${id}`);
+        return this.http.get<TransactionData[]>(`${environment.apiUrl}/transactionList/${id}`);
     }
     add_Transaction(transaction:any){
-        return this.http.post(`${this.apiUrl}/transactionList/`, transaction);
+        return this.http.post(`${environment.apiUrl}/transactionList/`, transaction);
     }
 }

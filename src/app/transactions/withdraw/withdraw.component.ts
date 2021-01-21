@@ -15,6 +15,8 @@ export class WithdrawComponent implements OnInit {
   WithDraw=new FormGroup({});
   transdata:TransactionData={Id:"",username:"",Amount:0,transactionType:"",Role:""}
   Id:string="";
+  submitted:boolean=false;
+  loading=false;
   constructor(
     private formBuilder: FormBuilder,
     private accountService: AccountService,
@@ -31,13 +33,18 @@ export class WithdrawComponent implements OnInit {
     this.accountService.getById(this.Id).pipe(first()).
     subscribe(
       x => {
-        this.transdata.username.setValue(x.username);
-        this.transdata.Role.setValue(x.Role);
+        this.transdata.username=x.username;
+        this.transdata.Role=x.Role;
     
     }
     );
   }
+  get f(){
+    return this.WithDraw.controls;
+  }
   onWithDraw(){
+    this.submitted=true;
+    this.loading=true;
     if(this.accountService.userValue.savings>500)
     {
       this.accountService.userValue.savings=this.accountService.userValue.savings-this.WithDraw.value.Amount;   
@@ -47,9 +54,10 @@ export class WithdrawComponent implements OnInit {
       this.accountService.add_Transaction(this.transdata); 
     }
     else{
-    this.alertService.alert("Minimum balance of 500 should be mainitained");
+      
+    this.alertService.info("Minimum balance of 500 should be mainitained");
     }
-    this.router.navigateByUrl('/home');
+    //this.router.navigateByUrl('/home');
   
     
   }
