@@ -10,8 +10,8 @@ const routes: Routes = [
     {
         path: '', component: LayoutComponent,
         children: [
-           { path: 'login', component: LoginComponent },
-            { path: 'register', component: RegisterComponent/*,data: { roles: [Role.Admin] }*/ }
+           { path: 'account/login', component: LoginComponent },
+            { path: 'account/register', component: RegisterComponent/*,data: { roles: [Role.Admin] }*/ }
         ]
        
     }
