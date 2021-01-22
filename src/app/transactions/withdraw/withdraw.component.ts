@@ -13,6 +13,8 @@ import { TransactionData } from 'src/app/_models/transaction-data';
 export class WithdrawComponent implements OnInit {
 
   WithDraw=new FormGroup({});
+  value:string="";
+  List:TransactionData[]=[];
   transdata:TransactionData={Id:"",username:"",Amount:0,transactionType:"",Role:""}
   Id:string="";
   submitted:boolean=false;
@@ -51,16 +53,17 @@ export class WithdrawComponent implements OnInit {
       this.transdata.Id=this.Id;
       this.transdata.transactionType="WithDraw";
       this.transdata.Amount=this.WithDraw.value.Amount;
+      //this.transdata.transactionDate=Date.toString();
       this.accountService.add_Transaction(this.transdata); 
     }
     else{
       
     this.alertService.info("Minimum balance of 500 should be mainitained");
     }
-    //this.router.navigateByUrl('/home');
-  
-    
+    //this.router.navigateByUrl('/home');   
   }
+
+ 
 
 
 }

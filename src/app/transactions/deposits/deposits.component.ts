@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TransactionData } from 'src/app/_models/transaction-data';
 import { AccountService, AlertService } from 'src/app/_services';
 import {first} from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-deposits',
@@ -34,7 +35,7 @@ export class DepositsComponent implements OnInit {
       x => {
         this.transdata.username=x.username;
         this.transdata.Role=x.Role;
-    
+        
     }
     );
   }
@@ -47,6 +48,7 @@ export class DepositsComponent implements OnInit {
     this.transdata.Id=this.Id;
     this.transdata.transactionType="Deposit";
     this.transdata.Amount=this.Deposit.value.Amount;
+    //this.transdata.transactionDate=Date.toString();
     this.accountService.add_Transaction(this.transdata);
     //this.router.navigateByUrl('/home'); 
   }

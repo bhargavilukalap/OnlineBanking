@@ -7,7 +7,8 @@
            "username": "Bhargavi",
            "password":"Oobh",  
            "savings":500,       
-            "Role":"User"
+            "Role":"User",
+            "token":""
             
       },
       {
@@ -17,7 +18,8 @@
       "username": "Bha",
       "password":"Oobh", 
       "savings":1000,    
-       "Role":"User"
+       "Role":"User",
+       "token":""
       }
     ],
     "transactionList":
